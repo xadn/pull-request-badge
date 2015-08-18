@@ -38,12 +38,14 @@ function pullRequestURL(owner, repo, pull) {
 }
 
 function parseStatuses(json) {
+  const contexts = {};
   return json.reduce((memo, status) => {
-    if (!memo[status.context]) {
-      memo[status.context] = {state: status.state, description: status.description, context: status.context};
+    if (!contexts[status.context]) {
+      contexts[status.context] = true;
+      memo.push({state: status.state, description: status.description, context: status.context});
     }
     return memo;
-  }, {});
+  }, []);
 }
 
 function addXmlns(svg) {
