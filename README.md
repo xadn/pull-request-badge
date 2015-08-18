@@ -1,6 +1,6 @@
 # pull-request-badge
 
-## Setup
+## Getting Started
 ```
 npm install
 npm start
