@@ -4,7 +4,7 @@ import http from 'http';
 import fetch from 'node-fetch';
 import React from 'react';
 import btoa from 'btoa';
-import Badge from './components/Badge';
+import createBadge from './components/Badge';
 
 var express = require('express');
 var app = express();
@@ -24,8 +24,9 @@ app.get('/gh/:username/:token/:owner/:repo/pulls/:pull.svg', (request, response)
   .then(json => {
     const statuses = parseStatuses(json);
     response.writeHead(200, {'Content-Type': 'image/svg+xml;charset=utf-8'});
-    response.end(renderBadge(<Badge {...{owner, repo, pull, statuses}} />));
-  });
+    response.end(createBadge(owner, repo, pull, statuses));
+  })
+  .catch(error => console.log('error', error))
 });
 
 function createGithubFetch(username, token) {
@@ -48,16 +49,16 @@ function parseStatuses(json) {
   }, []);
 }
 
-function addXmlns(svg) {
-  return svg.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-}
+// function addXmlns(svg) {
+//   return svg.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+// }
 
-function renderBadge(...args) {
-  console.time('renderBadge');
-  const ret = addXmlns(React.renderToStaticMarkup(...args));
-  console.timeEnd('renderBadge');
-  return ret;
-}
+// // function renderBadge(...args) {
+// //   console.time('renderBadge');
+// //   const ret = addXmlns(React.renderToStaticMarkup(...args));
+// //   console.timeEnd('renderBadge');
+// //   return ret;
+// // }
 
 http.createServer(app).listen(8080);
 console.log('listening on http://localhost:8080');
