@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/babel-node index.js",
-    "test": "./node_modules/.bin/babel-node test.js"
+    "start": "./node_modules/.bin/nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -18,11 +17,11 @@
   },
   "homepage": "https://github.com/xadn/pull-request-badge#readme",
   "dependencies": {
-    "babel": "^5.8.21",
     "btoa": "^1.1.2",
     "express": "^4.13.3",
-    "lodash": "^3.10.1",
-    "node-fetch": "^1.3.2",
-    "react": "^0.13.3"
+    "request": "^2.64.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.7.1"
   }
 }
